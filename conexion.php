@@ -8,7 +8,6 @@
             'database_password'=>'',
             'database_port'=>''
         );
-
         public function __construct()
         {
             $this->datos = array(
@@ -18,25 +17,19 @@
             'database_password'=>'root',
             'database_port'=>'3306'
             );
-            $this->conectar();
+            parent::__construct($this->datasabe_host, $this->database_user, $this->database_password, $this->database_name, $this->database_port);
         }
-        public function __construct1($host,$name,$user,$password,$port)
+        public function __construct1($host, $user,$password, $name, $port)
         {
             $this->datos = array(
             'database_host'=>$host,
-            'database_name'=>$name,
             'database_user'=>$user,
             'database_password'=>$password,
+            'database_name'=>$name,
             'database_port'=>$port
             );
-            $this->conectar();
+            parent::__construct($host, $user, $password, $name, $port);
         }
-
-        public function conectar()
-        {
-            $this->connect($this->datasabe_host, $this->database_user, $this->database_password, $this->database_name, $this->database_port);
-        }
-        
         public function __get($keyname){
             if(array_key_exists($keyname, $this->datos))
                 return $this->datos[$keyname];
@@ -46,10 +39,7 @@
                 $this->datos[$keyname] = $value;
         } 
     }
-
     $objeto = new Conexion();
-
-    $rst = $objeto->query("select * from usuarios");
-
-    $r = $rst->fetch_assoc();
-    var_dump($r);
+  //$rst = $objeto->query("select * from usuarios");
+  //$r = $rst->fetch_assoc();
+  //var_dump($r);
