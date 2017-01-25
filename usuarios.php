@@ -28,13 +28,31 @@ class Usuario
                 $usuario->nombre = $r['nombre'];
                 $usuario->apellidos = $r['apellidos'];
                 $usuario->email = $r['email'];
-                return $usuario;
+                $datos = array(
+                    'data' => array(
+                        'login' => true,
+                        'usuario' => $usuario->datos
+                    )
+                );
             }else{
-                return null;
+                $datos = array(
+                    'data' => array(
+                        'login' => false
+                    )
+                );
             }
         }else{
-            return false;
+            $datos = array(
+                    'data' => array(
+                        'login' => 'fail'
+                    )
+                );
         }
+        return json_encode($datos);
+    }
+    public function json_datos()
+    {
+        return json_encode($this->datos);
     }
     public function __get($campo)
     {
