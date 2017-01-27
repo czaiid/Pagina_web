@@ -1,5 +1,4 @@
 <?php
-require'conexion.php';
 class Usuario
 {   
     private $datos = array(
@@ -15,9 +14,11 @@ class Usuario
     }
     public static function login($user, $password)
     {
+        $datos = array('data'=>array('login'=>''));
         $cnn = new Conexion();
         $sql = sprintf("select * from usuarios where username='%s' and password='%s'",$user,md5($password));
         $rst = $cnn->query($sql);
+        $cnn->close();
         if($rst)
         {
             if($rst->num_rows == 1 ){
@@ -28,25 +29,14 @@ class Usuario
                 $usuario->nombre = $r['nombre'];
                 $usuario->apellidos = $r['apellidos'];
                 $usuario->email = $r['email'];
-                $datos = array(
-                    'data' => array(
-                        'login' => true,
-                        'usuario' => $usuario->datos
-                    )
-                );
+
+                $datos['data']['login'] = true;
+                $datos['data']['usuario'] = $usuario->datos;   
             }else{
-                $datos = array(
-                    'data' => array(
-                        'login' => false
-                    )
-                );
+                $datos['data']['login'] = false;
             }
         }else{
-            $datos = array(
-                    'data' => array(
-                        'login' => 'fail'
-                    )
-                );
+            $datos['data']['login'] = 'fail';
         }
         return json_encode($datos);
     }
@@ -66,5 +56,5 @@ class Usuario
     }
 }
 
-$u = Usuario::login('czaiid','123');
-var_dump($u);
+//$u = Usuario::login('czaiid','123');
+//var_dump($u);
