@@ -1,6 +1,6 @@
 
 function login(usuario,password){
-    $.post("../login.php", { txtusuario:usuario, txtpassword:password }, function(data){
+    $.post("login.php", { txtusuario:usuario, txtpassword:password }, function(data){
         return data;
     });
 }

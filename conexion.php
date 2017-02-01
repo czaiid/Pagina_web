@@ -39,7 +39,7 @@
                 $this->datos[$keyname] = $value;
         } 
     }
-    $objeto = new Conexion();
+  //  $objeto = new Conexion();
   //$rst = $objeto->query("select * from usuarios");
   //$r = $rst->fetch_assoc();
   //var_dump($r);
