@@ -2,8 +2,13 @@
 require 'conexion.php';
 require 'usuario.php';
 
-$usuario = $_POST['txtusuario'];
-$password = $_POST['txtpassword'];
-
+session_start();
 header('Content-Type: application/json');
-echo Usuario::login($usuario, $password);
+
+if($_SESSION['user']){
+    echo json_encode($_SESSION['user']);
+} else{
+    $usuario = $_POST['txtusuario'];
+    $password = $_POST['txtpassword'];
+    echo Usuario::login($usuario, $password);
+}
